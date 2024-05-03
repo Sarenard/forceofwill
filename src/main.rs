@@ -8,8 +8,8 @@ mod backend;
 mod frontend;
 
 const FPS: u32 = 30;
-const WIDTH: u32 = 1200;
-const HEIGHT: u32 = 800;
+const BASE_WIDTH: u32 = 1500;
+const BASE_HEIGHT: u32 = 1000;
 
 pub fn main() -> Result<(), String> {
 
@@ -19,7 +19,7 @@ pub fn main() -> Result<(), String> {
     let video_subsystem = sdl_context.video()?;
 
     let window = video_subsystem
-        .window("rust-sdl2 demo: Video", WIDTH, HEIGHT)
+        .window("Force of will bot", BASE_WIDTH, BASE_HEIGHT)
         .position_centered()
         .resizable()
         .opengl()
@@ -43,7 +43,7 @@ pub fn main() -> Result<(), String> {
         }
         std::thread::sleep(Duration::new(0, 1_000_000_000u32 / FPS));
         //println!("{} {}", canvas.output_size()?.0, canvas.output_size()?.1);
-        (canvas, gamestate) = frontend::gameloop::gameloop(canvas, gamestate)?;
+        frontend::gameloop::gameloop(&mut canvas, &mut gamestate);
     }
 
     Ok(())
